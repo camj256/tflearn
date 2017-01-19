@@ -190,9 +190,7 @@ def get_value_from_summary_string(tag, summary_str):
         `Exception` if tag not found.
 
     """
-    # Fix for TF 0.12
-    if tag[-1] == '/' and tf012:
-        tag = tag[:-1]
+    
     summ = summary_pb2.Summary()
     summ.ParseFromString(summary_str)
 
