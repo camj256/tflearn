@@ -191,10 +191,19 @@ def get_value_from_summary_string(tag, summary_str):
 
     """
     
+    if tag[-1] == '/' and tf012:
+        tag = tag[:-1]
     summ = summary_pb2.Summary()
     summ.ParseFromString(summary_str)
 
     for row in summ.value:
+        if row.tag == "wide_regression/Loss/wide_regression":
+            row.tag = "Loss/wide_regression"
+        if row.tag == "deep_regression/Loss/deep_regression":
+            row.tag = "Loss/deep_regression"
+        if row.tag == "central_bias_regression/Loss/central_bias_regression":
+            row.tag = "Loss/central_bias_regression"
+
         if row.tag == tag:
             return float(row.simple_value)
 
